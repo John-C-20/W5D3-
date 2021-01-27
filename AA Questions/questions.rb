@@ -1,13 +1,14 @@
 require "sqlite3"
 require "singleton"
+require "byebug"
 
 class QuestionsDatabase < SQLite3::Database
     include Singleton
 
     def initialize
-        super("questions.db")
+        super('questions.db')
         self.type_translation = true
-        self.result_as_hash = true
+        self.results_as_hash = true
     end
 end
 
@@ -33,8 +34,7 @@ class User
 
     def create
         raise "#{self} already in databse" if self.id 
-        QuestionsDatabase.instance.execute(<<-SQL, @fname, @lname, 
-            @is_instructor)
+        QuestionsDatabase.instance.execute(<<-SQL, @fname, @lname, @is_instructor)
             INSERT INTO
                 users(fname, lname, is_instructor)
             VALUES
@@ -46,8 +46,7 @@ class User
 
     def update
         raise "#{self} not in database" unless @id 
-        QuestionsDatabase.instance.execute(<<-SQL, @fname, @lname,
-            @is_instructor, @id)
+        QuestionsDatabase.instance.execute(<<-SQL, @fname, @lname, @is_instructor, @id)
             UPDATE 
                 users
             SET
@@ -58,8 +57,7 @@ class User
     end
 
     def self.find_by_name(fname, lname)
-        data = QuestionsDatabase.instance.execute(<<-SQL,
-        fname, lname)
+        data = QuestionsDatabase.instance.execute(<<-SQL, fname, lname)
             SELECT *
             FROM users
             WHERE fname = ? AND lname = ? 

@@ -54,8 +54,8 @@ CREATE TABLE question_likes(
 INSERT INTO
 users(fname, lname, is_instructor)
 VALUES
-('Brad', 'Trick', true),
-('John', 'Cheung', false);
+('Brad', 'Trick', 't'),
+('John', 'Cheung', 'f');
 
 INSERT INTO
 questions(title, body, author_id)
