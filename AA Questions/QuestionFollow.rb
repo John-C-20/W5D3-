@@ -108,4 +108,29 @@ class QuestionFollow
             
         data.map {|datum| Question.find_by_id(datum['id'])}
     end
+
+    def self.most_followed_questions(n)
+        data = QuestionsDatabase.instance.execute(<<-SQL, n)
+            SELECT 
+                question_id, COUNT(*) AS num_followers 
+            FROM 
+                question_follows 
+            --JOIN
+            --     questions 
+            -- ON
+            --     question_follows.question_id = questions.id
+            GROUP BY question_id
+            ORDER BY num_followers DESC LIMIT ?  
+        SQL
+            
+        data.map {|datum| Question.find_by_id(datum[0])}
+    end    
+
+
+    # COUNT(question_id) # number of users following that question
+
+
+
+
+
 end

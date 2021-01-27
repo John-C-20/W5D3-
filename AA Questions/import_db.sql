@@ -60,29 +60,42 @@ INSERT INTO
 users(fname, lname, is_instructor)
 VALUES
 ('Brad', 'Trick', 't'),
-('John', 'Cheung', 'f');
+('John', 'Cheung', 'f'),
+('Rich', 'Lim', 't');
 
 INSERT INTO
 questions(title, body, author_id)
 VALUES
-('Help', 'Why doesn''t this work?', 1);
+('Help', 'Why doesn''t this work?', 1),
+('Q2', '??????', 2),
+('Q3', '????????????', 3);
 
 INSERT INTO
 question_follows(user_id, question_id)
 VALUES
 (1,1),
-(2,1);
+(2,1),
+(3,1),
+(1,2),
+(2,2),
+(1,3);
 
 INSERT INTO
 replies(subject_question_id, parent_reply_id, author_id, body)
 VALUES
-(1, NULL, 2, 'IDK either');
+(1, NULL, 2, 'IDK either'),
+(2, NULL, 1, 'totally'),
+(2, 2, 2, 'Darn it');
 
 INSERT INTO
 question_likes(user_id, question_id)
 VALUES
 (1,1),
-(2,1);
+(2,1),
+(3,1),
+(1,2),
+(2,2),
+(1,3);
 
 
 
