@@ -1,3 +1,5 @@
+-- DROP DATABASE questions.db
+
 PRAGMA foreign_keys = ON; 
 
 CREATE TABLE users(
@@ -66,7 +68,7 @@ VALUES
 (2,1);
 
 INSERT INTO
-replies(subject_question_id, parent_reply_id, user_id, body)
+replies(subject_question_id, parent_reply_id, author_id, body)
 VALUES
 (1, NULL, 2, 'IDK either');
 
