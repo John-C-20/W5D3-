@@ -100,3 +100,12 @@ aside {
   
 }
 
+aside li, section li {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+form label {
+  display: block;
+}
+
