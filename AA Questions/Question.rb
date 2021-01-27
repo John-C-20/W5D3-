@@ -81,4 +81,8 @@ class Question
     def followers
         QuestionFollow.followers_for_question_id(@id)
     end
+
+    def self.most_followed(n)
+
+    end
 end
