@@ -1,4 +1,5 @@
-require_relative "questions.rb"
+# require_relative "questions.rb"
+require_relative "setup.rb"
 
 class Reply
     def self.find_by_id(id)

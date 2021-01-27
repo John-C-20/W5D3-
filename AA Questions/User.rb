@@ -1,5 +1,6 @@
-require_relative "questions.rb"
-require_relative "Question.rb"
+# require_relative "questions.rb"
+# require_relative "Question.rb"
+require_relative "setup.rb"
 
 class User
     def self.find_by_id(id)

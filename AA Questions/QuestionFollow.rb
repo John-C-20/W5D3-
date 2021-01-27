@@ -1,4 +1,7 @@
-require_relative "questions.rb"
+# require_relative "questions.rb"
+# require_relative "User.rb"
+
+require_relative "setup.rb"
 
 class QuestionFollow
     def self.find_by_id(id)
@@ -64,5 +67,25 @@ class QuestionFollow
     def self.all
         data = QuestionsDatabase.instance.execute('SELECT * FROM question_follows')
         data.map {|datum| QuestionFollow.new(datum)}
+    end
+
+    def self.followers_for_question_id(question_id)
+        data = QuestionsDatabase.instance.execute(<<-SQL, @user_id, question_id
+            SELECT fname, lname 
+            FROM 
+                question_follows 
+            JOIN 
+                users
+            ON
+                ? = users.id    
+            JOIN
+                questions 
+            ON
+                ? = questions.id
+            WHERE
+                questions.id = question_id 
+        SQL 
+
+        data.map {|datum| User.find_by_name(datum['fname'],datum['lname'])}
     end
 end

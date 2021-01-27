@@ -1,0 +1,6 @@
+require_relative "User.rb"
+require_relative "Question.rb"
+require_relative "QuestionLike.rb"
+require_relative "QuestionFollow.rb" 
+require_relative "Reply.rb"
+require_relative "questions.rb" 
