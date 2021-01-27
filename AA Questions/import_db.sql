@@ -5,7 +5,8 @@ PRAGMA foreign_keys = ON;
 CREATE TABLE users(
     id INTEGER PRIMARY KEY,
     fname TEXT,
-    lname TEXT
+    lname TEXT,
+    is_instructor BOOLEAN 
 );
 
 
@@ -51,10 +52,10 @@ CREATE TABLE question_likes(
 );
 
 INSERT INTO
-users(fname, lname)
+users(fname, lname, is_instructor)
 VALUES
-('Brad', 'Trick'),
-('John', 'Cheung');
+('Brad', 'Trick', true),
+('John', 'Cheung', false);
 
 INSERT INTO
 questions(title, body, author_id)
