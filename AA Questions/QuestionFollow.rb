@@ -70,22 +70,42 @@ class QuestionFollow
     end
 
     def self.followers_for_question_id(question_id)
-        data = QuestionsDatabase.instance.execute(<<-SQL, @user_id, question_id
-            SELECT fname, lname 
+        data = QuestionsDatabase.instance.execute(<<-SQL, question_id)
+            SELECT 
+                users.fname, users.lname 
             FROM 
                 question_follows 
-            JOIN 
-                users
-            ON
-                ? = users.id    
-            JOIN
-                questions 
-            ON
-                ? = questions.id
-            WHERE
-                questions.id = question_id 
-        SQL 
-
+             JOIN 
+                 users
+             ON
+                 question_follows.user_id = users.id    
+             JOIN
+                 questions 
+             ON
+                 question_follows.question_id = questions.id
+            WHERE questions.id = ?
+        SQL
+            
         data.map {|datum| User.find_by_name(datum['fname'],datum['lname'])}
+    end
+
+    def self.followed_questions_for_user_id(user_id)
+        data = QuestionsDatabase.instance.execute(<<-SQL, user_id)
+            SELECT 
+                questions.id 
+            FROM 
+                question_follows 
+             JOIN 
+                 users
+             ON
+                 question_follows.user_id = users.id    
+             JOIN
+                 questions 
+             ON
+                 question_follows.question_id = questions.id
+            WHERE users.id = ?
+        SQL
+            
+        data.map {|datum| Question.find_by_id(datum['id'])}
     end
 end
