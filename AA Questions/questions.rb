@@ -20,21 +20,22 @@ class User
             WHERE id = ?  
         SQL
 
-        User.new(data)
+        User.new(data[0])
     end 
     
     def initialize(options)
         @id = options['id']
         @fname = options['fname']
         @lname = options['lname']
-        @is_instructor = options['is_instructor']
+        @is_instructor = options['is_instructor'] 
     end
 
     attr_accessor :id, :fname, :lname, :is_instructor
 
     def create
         raise "#{self} already in databse" if self.id 
-        QuestionsDatabase.instance.execute(<<-SQL, @fname, @lname, @is_instructor)
+        instructor = @is_instructor ? 't' : 'f'
+        QuestionsDatabase.instance.execute(<<-SQL, @fname, @lname, instructor)
             INSERT INTO
                 users(fname, lname, is_instructor)
             VALUES
@@ -46,7 +47,8 @@ class User
 
     def update
         raise "#{self} not in database" unless @id 
-        QuestionsDatabase.instance.execute(<<-SQL, @fname, @lname, @is_instructor, @id)
+        instructor = @is_instructor ? 't' : 'f'
+        QuestionsDatabase.instance.execute(<<-SQL, @fname, @lname, instructor, @id)
             UPDATE 
                 users
             SET
@@ -69,11 +71,6 @@ class User
         data = QuestionsDatabase.instance.execute('SELECT * FROM users')
         data.map {|datum| User.new(datum)}
     end
-
-    
-
-
-
 end
 
 class Question
