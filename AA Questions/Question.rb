@@ -66,5 +66,15 @@ class Question
         SQL
         data.map {|datum| Question.new(datum)}
     end
+
+    def author
+        raise "#{self} has no listed author" unless author_id 
+        User.find_by_id(author_id) 
+    end
+
+    def replies
+        raise "#{self} is not listed in the database" unless id 
+        Reply.find_by_question_id(id) 
+    end
     
 end

@@ -76,4 +76,21 @@ class Reply
         data = QuestionsDatabase.instance.execute('SELECT * FROM replies')
         data.map {|datum| Reply.new(datum)}
     end
+
+    def author
+        raise "#{self} has no listed author" unless author_id 
+        User.find_by_id(author_id) 
+    end
+
+    def question
+        Question.find_by_id(subject_question_id) 
+    end
+
+    def parent_reply
+        Reply.find_by_id(parent_reply_id)
+    end
+
+    def child_replies
+        Reply.find_by_parent_reply_id(id)
+    end
 end

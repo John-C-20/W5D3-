@@ -65,4 +65,9 @@ class User
         raise "#{self} not in database" unless @id 
         Question.find_by_author_id(@id) 
     end
+
+    def authored_replies
+        raise "#{self} not in database" unless @id 
+        Reply.find_by_user_id(@id) 
+    end
 end
